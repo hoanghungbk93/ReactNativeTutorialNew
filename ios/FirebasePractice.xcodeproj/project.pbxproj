@@ -43,6 +43,9 @@
 		188B8C8922C85E1000CCBA62 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188B8C7822C85E1000CCBA62 /* FirebaseInstanceID.framework */; };
 		188B8C8A22C85E1000CCBA62 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188B8C7922C85E1000CCBA62 /* FirebaseCoreDiagnostics.framework */; };
 		188B8C9122C860C900CCBA62 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 188B8C9022C860A800CCBA62 /* libRNImagePicker.a */; };
+		188B8CDF22C9A74100CCBA62 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 188B8CDB22C9A72200CCBA62 /* libRNGestureHandler.a */; };
+		188B8CE322C9A90500CCBA62 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188B8CE122C9A90500CCBA62 /* GTMSessionFetcher.framework */; };
+		188B8CE422C9A90500CCBA62 /* FirebaseAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188B8CE222C9A90500CCBA62 /* FirebaseAuth.framework */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -175,6 +178,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
 			remoteInfo = RNImagePicker;
+		};
+		188B8CDA22C9A72200CCBA62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 188B8CAE22C9A72100CCBA62 /* RNGestureHandler.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNGestureHandler;
+		};
+		188B8CDC22C9A72200CCBA62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 188B8CAE22C9A72100CCBA62 /* RNGestureHandler.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B5C32A36220C603B000FFB8D;
+			remoteInfo = "RNGestureHandler-tvOS";
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -402,6 +419,9 @@
 		188B8C7922C85E1000CCBA62 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
 		188B8C8B22C860A800CCBA62 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		188B8C9222C8A5DE00CCBA62 /* FirebasePractice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FirebasePractice.entitlements; path = FirebasePractice/FirebasePractice.entitlements; sourceTree = "<group>"; };
+		188B8CAE22C9A72100CCBA62 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
+		188B8CE122C9A90500CCBA62 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = "<group>"; };
+		188B8CE222C9A90500CCBA62 /* FirebaseAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAuth.framework; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* FirebasePractice-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FirebasePractice-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* FirebasePractice-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FirebasePractice-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -450,15 +470,18 @@
 				188B8C8122C85E1000CCBA62 /* GTMSessionFetcher.framework in Frameworks */,
 				188B8C8322C85E1000CCBA62 /* GoogleAppMeasurement.framework in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
+				188B8CE422C9A90500CCBA62 /* FirebaseAuth.framework in Frameworks */,
 				188B8C8622C85E1000CCBA62 /* GoogleUtilities.framework in Frameworks */,
 				188B8C7B22C85E1000CCBA62 /* gRPC-Core.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				188B8CE322C9A90500CCBA62 /* GTMSessionFetcher.framework in Frameworks */,
 				188B8C6222C85BE500CCBA62 /* libRNFirebase.a in Frameworks */,
 				9E59346122EA43E6B2B6607A /* libRNFirebase.a in Frameworks */,
 				188B8C9122C860C900CCBA62 /* libRNImagePicker.a in Frameworks */,
+				188B8CDF22C9A74100CCBA62 /* libRNGestureHandler.a in Frameworks */,
 				188B8C7A22C85E1000CCBA62 /* Protobuf.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -635,6 +658,7 @@
 		188B8C6322C85E1000CCBA62 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
+				188B8CE022C9A90500CCBA62 /* Auth */,
 				188B8C6422C85E1000CCBA62 /* Firestore */,
 				188B8C6D22C85E1000CCBA62 /* Firebase.h */,
 				188B8C6E22C85E1000CCBA62 /* Storage */,
@@ -697,6 +721,24 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		188B8CAF22C9A72100CCBA62 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				188B8CDB22C9A72200CCBA62 /* libRNGestureHandler.a */,
+				188B8CDD22C9A72200CCBA62 /* libRNGestureHandler-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		188B8CE022C9A90500CCBA62 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				188B8CE122C9A90500CCBA62 /* GTMSessionFetcher.framework */,
+				188B8CE222C9A90500CCBA62 /* FirebaseAuth.framework */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,6 +770,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				188B8CAE22C9A72100CCBA62 /* RNGestureHandler.xcodeproj */,
 				188B8C8B22C860A800CCBA62 /* RNImagePicker.xcodeproj */,
 				188B8C5C22C85BD400CCBA62 /* RNFirebase.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -972,6 +1015,10 @@
 					ProjectRef = 188B8C5C22C85BD400CCBA62 /* RNFirebase.xcodeproj */;
 				},
 				{
+					ProductGroup = 188B8CAF22C9A72100CCBA62 /* Products */;
+					ProjectRef = 188B8CAE22C9A72100CCBA62 /* RNGestureHandler.xcodeproj */;
+				},
+				{
 					ProductGroup = 188B8C8C22C860A800CCBA62 /* Products */;
 					ProjectRef = 188B8C8B22C860A800CCBA62 /* RNImagePicker.xcodeproj */;
 				},
@@ -1090,6 +1137,20 @@
 			fileType = archive.ar;
 			path = libRNImagePicker.a;
 			remoteRef = 188B8C8F22C860A800CCBA62 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		188B8CDB22C9A72200CCBA62 /* libRNGestureHandler.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNGestureHandler.a;
+			remoteRef = 188B8CDA22C9A72200CCBA62 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		188B8CDD22C9A72200CCBA62 /* libRNGestureHandler-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNGestureHandler-tvOS.a";
+			remoteRef = 188B8CDC22C9A72200CCBA62 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2D16E6721FA4F8DC00B85C8A /* libRCTBlob-tvOS.a */ = {
@@ -1468,6 +1529,7 @@
 					"$(PROJECT_DIR)/Firebase/Storage",
 					"$(PROJECT_DIR)/Firebase/Analytics",
 					"$(SRCROOT)/Firebase",
+					"$(PROJECT_DIR)/Firebase/Auth",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1499,6 +1561,7 @@
 					"$(PROJECT_DIR)/Firebase/Storage",
 					"$(PROJECT_DIR)/Firebase/Analytics",
 					"$(SRCROOT)/Firebase",
+					"$(PROJECT_DIR)/Firebase/Auth",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

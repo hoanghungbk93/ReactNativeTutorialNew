@@ -13,7 +13,8 @@ import {
 import ImagePicker from 'react-native-image-picker';
 import firebase from 'react-native-firebase';
 import uuid from 'uuid/v4'; // Import UUID to generate UUID
-
+import LoginComponent from './components/LoginComponent'
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 const options = {
   title: 'Select Image',
   storageOptions: {
@@ -30,7 +31,7 @@ const ImageRow = ({ image, windowWidth, popImage }) => (
     />
   </View>
 );
-export default class App extends Component {
+class MainScreen extends Component {
   state = {
     imgSource: '',
     uploading: false,
@@ -123,18 +124,21 @@ export default class App extends Component {
     const disabledStyle = uploading ? styles.disabledBtn : {};
     const actionBtnStyles = [styles.btn, disabledStyle];
     return (
-      <View>
+      <View style ={{
+        flex : 1, flexDirection : 'column'
+      }}>
+        <TouchableOpacity
+          style={actionBtnStyles}
+          onPress={this.pickImage}
+          disabled={uploading}
+        >
+          <View>
+            <Text style={styles.btnTxt}>Pick image</Text>
+          </View>
+        </TouchableOpacity>
         <ScrollView>
           <View style={styles.container}>
-            <TouchableOpacity
-              style={actionBtnStyles}
-              onPress={this.pickImage}
-              disabled={uploading}
-            >
-              <View>
-                <Text style={styles.btnTxt}>Pick image</Text>
-              </View>
-            </TouchableOpacity>
+            
             {/** Display selected image */}
             {imgSource !== '' && (
               <View>
@@ -188,11 +192,46 @@ export default class App extends Component {
             />
           </View>
         </ScrollView>
+        <TouchableOpacity
+              style={styles.logoutBtn}
+              onPress={this.logout}
+            >
+              <View>
+                <Text style={styles.btnTxt}>Logout</Text>
+              </View>
+            </TouchableOpacity>
       </View>
     );
   }
 }
 
+const RootStack = createStackNavigator(
+  {
+    Login: LoginComponent,
+    Main: MainScreen,
+  },
+  {
+    initialRouteName: 'Login',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#f4511e',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+      headerLeft: null
+    },
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
+
+export default class App extends React.Component {
+  render() {
+    return <AppContainer />;
+  }
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -210,6 +249,16 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: 'rgb(3, 154, 229)',
     marginTop: 20,
+    alignItems: 'center'
+  },
+  logoutBtn: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 20,
+    backgroundColor: 'rgb(3, 154, 229)',
+    marginBottom: 20,
     alignItems: 'center'
   },
   disabledBtn: {
