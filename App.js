@@ -14,12 +14,13 @@ import ImagePicker from 'react-native-image-picker';
 import firebase from 'react-native-firebase';
 import uuid from 'uuid/v4'; // Import UUID to generate UUID
 import LoginComponent from './components/LoginComponent'
+import MainMenu from './components/MainMenu'
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-const options = {
+var options = {
   title: 'Select Image',
   storageOptions: {
     skipBackup: true,
-    path: 'images'
+    path: ''
   }
 };
 const ImageRow = ({ image, windowWidth, popImage }) => (
@@ -32,24 +33,48 @@ const ImageRow = ({ image, windowWidth, popImage }) => (
   </View>
 );
 class MainScreen extends Component {
+  constructor(props)
+  {
+    super(props)
+    this.logout = this.logout.bind(this)
+  }
   state = {
     imgSource: '',
     uploading: false,
     progress: 0,
-    images: []
+    images: [],
+    path : ""
   };
   componentDidMount() {
-    let images;
-    AsyncStorage.getItem('images')
-      .then(data => {
-        images = JSON.parse(data) || [];
-        this.setState({
-          images: images
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    const { navigation } = this.props;
+      const PrName = navigation.getParam('name');
+      console.log(`Prname :  ${JSON.stringify(PrName)}`)
+      if (PrName.name.length != 0)
+      {
+        this.setState(
+          { path: PrName.name },
+            () => {
+              console.log(this.state.path) // Mustkeom
+              options.storageOptions.path = this.state.path
+              let images;
+              AsyncStorage.getItem(options.storageOptions.path)
+                .then(data => {
+                  images = JSON.parse(data) || [];
+                  this.setState({
+                    images: images
+                  });
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            }
+        );
+      }
+    
+      
+      
+      console.log(` path : ${this.state.path}`)
+      console.log(`option :  ${options.storageOptions.path}`)
   }
   /**
    * Select image method
@@ -73,12 +98,13 @@ class MainScreen extends Component {
    * Upload image method
    */
   uploadImage = () => {
+    console.log(`option :  ${options.storageOptions.path}`)
     const ext = this.state.imageUri.split('.').pop(); // Extract image extension
     const filename = `${uuid()}.${ext}`; // Generate unique name
     this.setState({ uploading: true });
     firebase
       .storage()
-      .ref(`tutorials/images/${filename}`)
+      .ref(`tutorials/${options.storageOptions.path}/${filename}`)
       .putFile(this.state.imageUri)
       .on(
         firebase.storage.TaskEvent.STATE_CHANGED,
@@ -97,9 +123,10 @@ class MainScreen extends Component {
               imgSource: '',
               imageUri: '',
               progress: 0,
-              images: allImages
+              images: allImages,
+              path : ''
             };
-            AsyncStorage.setItem('images', JSON.stringify(allImages));
+            AsyncStorage.setItem(options.storageOptions.path, JSON.stringify(allImages));
           }
           this.setState(state);
         },
@@ -116,8 +143,12 @@ class MainScreen extends Component {
     let images = this.state.images;
     images.pop(imageIndex);
     this.setState({ images });
-    AsyncStorage.setItem('images', JSON.stringify(images));
+    AsyncStorage.setItem(options.storageOptions.path, JSON.stringify(images));
   };
+  logout()
+  {
+    this.props.navigation.navigate('Login')
+  } 
   render() {
     const { uploading, imgSource, progress, images } = this.state;
     const windowWidth = Dimensions.get('window').width;
@@ -209,6 +240,7 @@ const RootStack = createStackNavigator(
   {
     Login: LoginComponent,
     Main: MainScreen,
+    MainMenu : MainMenu
   },
   {
     initialRouteName: 'Login',
@@ -220,7 +252,6 @@ const RootStack = createStackNavigator(
       headerTitleStyle: {
         fontWeight: 'bold',
       },
-      headerLeft: null
     },
   }
 );
