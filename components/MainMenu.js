@@ -1,19 +1,25 @@
 import React, {Component} from 'react'
 import {View, Image, Text, TextInput, Alert, FlatList, TouchableHighlight, Dimensions} from 'react-native'
 const PhoneWidth = Dimensions.get('window').width
+import firebase from 'react-native-firebase';
+ let iosConfig = {
+    apiKey: "AIzaSyDq1Pa7UGSlrKC0ORoWC_qO8_dYXi0Fzyk",
+    appId : "1:357485505759:ios:1c7f749083b7c366",
+    clientId: "357485505759-fm5e7sm6jcaf5vqd747l1m0aha77uk2r.apps.googleusercontent.com",
+    databaseURL: "https://fir-practice-fa1ec.firebaseio.com",
+    projectId: "fir-practice-fa1ec",
+    storageBucket: "fir-practice-fa1ec.appspot.com",
+    messagingSenderId: "357485505759"
+  };
+let app = firebase.initializeApp(iosConfig, 'footballApp');
+const rootRef = app.database().ref()
+const teamRef = rootRef.child('teamList')
 export default class MainMenu extends Component{
     constructor(props)
     {
         super(props)
         this.state = {
-            dataList : [
-                {
-                    name : "hung"
-                },
-                {
-                    name : 'chip'
-                }
-            ],
+            dataList : [],
             currentProjectName : "",
             refreshFlatList : false
         }
@@ -26,6 +32,27 @@ export default class MainMenu extends Component{
         this.props.navigation.navigate('Main',
         {
             name : this.state.dataList[index]
+        })
+    }
+    componentDidMount()
+    {
+        teamRef.on('value', (childSnapshot) =>
+        {
+            const teamList = []
+            childSnapshot.forEach(doc => {
+                teamList.push(
+                    {
+                        key : doc.key,
+                        memberName : doc.toJSON().memberName
+                    }
+                )
+                this.setState(
+                    {
+                        dataList : teamList,
+                        refreshFlatList : !this.state.refreshFlatList
+                    }
+                )
+            });
         })
     }
     render()
@@ -66,16 +93,22 @@ export default class MainMenu extends Component{
                         onPress = {
                             () =>
                             {
-                                if(this.state.currentProjectName.lenght != 0)
+                                if(this.state.currentProjectName !== "")
                                 {
                                     currentDataList = this.state.dataList
-                                    currentDataList.push({name : this.state.currentProjectName})
+                                    currentDataList.push({memberName : this.state.currentProjectName})
                                     this.setState(
                                         {
                                             dataList : currentDataList,
                                             refreshFlatList : !this.state.refreshFlatList
                                         }
                                     )
+                                    teamRef.push(
+                                        {
+                                            memberName : this.state.currentProjectName
+                                        }
+                                    )
+                                    
                                 }
                             }
                         }
@@ -107,7 +140,7 @@ export default class MainMenu extends Component{
                                         fontSize : 25,
                                         color : 'red'
                                     }}
-                                >{item.name}</Text>
+                                >{item.memberName}</Text>
                             </TouchableHighlight>
                         )
                     }

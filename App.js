@@ -49,10 +49,10 @@ class MainScreen extends Component {
     const { navigation } = this.props;
       const PrName = navigation.getParam('name');
       console.log(`Prname :  ${JSON.stringify(PrName)}`)
-      if (PrName.name.length != 0)
+      if (PrName.memberName.length != 0)
       {
         this.setState(
-          { path: PrName.name },
+          { path: PrName.memberName },
             () => {
               console.log(this.state.path) // Mustkeom
               options.storageOptions.path = this.state.path
@@ -60,6 +60,8 @@ class MainScreen extends Component {
               AsyncStorage.getItem(options.storageOptions.path)
                 .then(data => {
                   images = JSON.parse(data) || [];
+                  console.log('==========================')
+                  console.log(images)
                   this.setState({
                     images: images
                   });
@@ -209,15 +211,21 @@ class MainScreen extends Component {
               </Text>
             </View>
             <FlatList
-              numColumns={2}
               style={{ marginTop: 20 }}
               data={images}
               renderItem={({ item: image, index }) => (
-                <ImageRow
-                  windowWidth={windowWidth}
-                  image={image}
-                  popImage={() => this.removeImage(index)}
-                />
+                <View style = {{flexDirection : 'row'}}>
+                  <ImageRow
+                    windowWidth={windowWidth}
+                    image={image}
+                    popImage={() => this.removeImage(index)}
+                  />
+                  <View style ={{flexDirection : 'column', marginTop : 10}}>
+                    <Text>Hoang Cong Hung</Text>
+                    <Text>1993</Text>
+                    <Text>BacGiang</Text>
+                  </View>
+                </View>
               )}
               keyExtractor={index => index}
             />
