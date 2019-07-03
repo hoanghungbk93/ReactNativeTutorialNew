@@ -53,7 +53,7 @@ export default class LoginComponent extends Component{
                         user : Luser
                     }
                 )
-                this.props.navigation.navigate('Main')
+                this.props.navigation.navigate('MainMenu')
                 console.log(`login user : ${JSON.stringify(Luser)} success`)
             }
         )
