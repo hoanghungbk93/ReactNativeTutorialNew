@@ -13,15 +13,16 @@ import firebase from 'react-native-firebase';
   };
 let app = firebase.initializeApp(iosConfig, 'footballApp');
 const rootRef = app.database().ref()
-const teamRef = rootRef.child('teamList')
+export const teamRef = rootRef.child('teamList/')
 export default class MainMenu extends Component{
     constructor(props)
     {
         super(props)
         this.state = {
             dataList : [],
-            currentProjectName : "",
-            refreshFlatList : false
+            currentTeamName : "",
+            refreshFlatList : false,
+            currentKey : ""
         }
 
         this.onItemPress = this.onItemPress.bind(this)
@@ -43,7 +44,7 @@ export default class MainMenu extends Component{
                 teamList.push(
                     {
                         key : doc.key,
-                        memberName : doc.toJSON().memberName
+                        teamName : doc.toJSON().teamName
                     }
                 )
                 this.setState(
@@ -67,22 +68,25 @@ export default class MainMenu extends Component{
                     flexDirection : 'row',
                     height : 50,
                     marginTop : 10,
-                    marginLeft : 10,
                     backgroundColor : 'white',
                     height : 50
                 }}>
                     <TextInput
                         style = {{
-                            marginLeft : 10,
-                            fontSize : 25
+                            width : 400,
+                            height : 40,
+                            marginBottom : 10
                         }}
                         placeholder = "Enter new project name"
+                        autoCorrect={false}
+                        autoCorrect={false}
+                        autoCapitalize = 'none'
                         onChangeText = {
                             (text) =>
                             {
                                 this.setState(
                                     {
-                                        currentProjectName : text
+                                        currentTeamName : text
                                     }
                                 )
                             }
@@ -93,22 +97,30 @@ export default class MainMenu extends Component{
                         onPress = {
                             () =>
                             {
-                                if(this.state.currentProjectName !== "")
+                                if(this.state.currentTeamName !== "")
                                 {
                                     currentDataList = this.state.dataList
-                                    currentDataList.push({memberName : this.state.currentProjectName})
+                                    
+                                    const key = teamRef.push(
+                                        {
+                                            teamName : this.state.currentTeamName
+                                        }
+                                    ).key
+                                    currentDataList.push({
+                                        key : key,
+                                        teamName : this.state.currentTeamName
+                                    })
                                     this.setState(
                                         {
                                             dataList : currentDataList,
-                                            refreshFlatList : !this.state.refreshFlatList
-                                        }
-                                    )
-                                    teamRef.push(
-                                        {
-                                            memberName : this.state.currentProjectName
+                                            refreshFlatList : !this.state.refreshFlatList,
+                                            currentKey : key
                                         }
                                     )
                                     
+                                }
+                                else{
+                                    Alert.alert('Please insert project name')
                                 }
                             }
                         }
@@ -133,6 +145,9 @@ export default class MainMenu extends Component{
                         // console.log(`Item = ${JSON.stringify(item)}, index = ${index}`);
                         return(
                             <TouchableHighlight 
+                            style ={{
+                                backgroundColor : (index % 2 ==0) ? 'green' : 'yellow'
+                            }}
                             onPress={() => {this.onItemPress(index)}}
                             >
                                 <Text
@@ -140,7 +155,7 @@ export default class MainMenu extends Component{
                                         fontSize : 25,
                                         color : 'red'
                                     }}
-                                >{item.memberName}</Text>
+                                >{item.teamName}</Text>
                             </TouchableHighlight>
                         )
                     }
